@@ -12,8 +12,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 
 import { HttpClientModule } from '@angular/common/http';
+import { ProfileComponent } from './shell/content/profile/profile.component';
 @NgModule({
-  declarations: [AppComponent, ContentComponent, HeaderComponent],
+  declarations: [AppComponent, ContentComponent, HeaderComponent, ProfileComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
