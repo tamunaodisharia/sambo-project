@@ -8,6 +8,13 @@
     <button mat-button>ჩვენს შესახებ</button>
     <button mat-button>სპორტსმენები</button>
     <button mat-button>შეჯიბრები</button>
-    <button mat-button>ავტორიზაცია</button>
+    <button mat-button *ngIf="isLoggedOut; else userLogo">ავტორიზაცია</button>
   </div>
 </div>
+<ng-template #userLogo>
+  <button mat-button [matMenuTriggerFor]="menu">User</button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item>პროფილი</button>
+    <button mat-menu-item>გამოსვლა</button>
+  </mat-menu>
+</ng-template>
