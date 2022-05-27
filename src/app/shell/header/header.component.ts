@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatMenuTrigger } from '@angular/material/menu';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -7,8 +8,22 @@ import { MatMenuTrigger } from '@angular/material/menu';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
-  isLoggedOut = false; // needs change
-  constructor() {}
+  isLoggedIn = false; // needs change
+
+  constructor(private router: Router) {}
 
   ngOnInit(): void {}
+
+  onAuth() {
+    this.isLoggedIn = true;
+  }
+
+  onProfile() {
+    this.router.navigate(['shell/profile']);
+  }
+
+  onLogOut() {
+    this.isLoggedIn = false;
+    this.router.navigate(['shell']);
+  }
 }
