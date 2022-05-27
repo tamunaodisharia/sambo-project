@@ -10,13 +10,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
 
 import { ProfileModule } from './shell/content/profile/profile.module';
 import { HttpClientModule } from '@angular/common/http';
-import { ProfileComponent } from './shell/content/profile/profile.component';
+
 @NgModule({
   declarations: [AppComponent, ContentComponent, HeaderComponent],
   imports: [
+    ProfileModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -24,7 +26,7 @@ import { ProfileComponent } from './shell/content/profile/profile.component';
     MatButtonModule,
     HttpClientModule,
     MatMenuModule,
-    ProfileModule,
+    MatIconModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
