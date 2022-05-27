@@ -11,7 +11,9 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 
+import { ProfileModule } from './shell/content/profile/profile.module';
 import { HttpClientModule } from '@angular/common/http';
+import { ProfileComponent } from './shell/content/profile/profile.component';
 @NgModule({
   declarations: [AppComponent, ContentComponent, HeaderComponent],
   imports: [
@@ -22,6 +24,7 @@ import { HttpClientModule } from '@angular/common/http';
     MatButtonModule,
     HttpClientModule,
     MatMenuModule,
+    ProfileModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

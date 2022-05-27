@@ -1,0 +1,57 @@
+<mat-accordion class="example-headers-align" multi>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          სპორტსმენის რეგისტრაცია
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            მწვრთნელის რეგისტრაცია
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          მსაჯის რეგისტრაცია
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <form [formGroup]="registerForm">
+        <p>
+            <mat-form-field appearance="fill" class="small-field">
+                <mat-label>სახელი</mat-label>
+                <input  matInput
+                        formControlName="name">
+                <mat-error *ngIf="registerForm.get('name').invalid && formSubmitted">
+                    გთხოვთ შეავსოთ
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" class="small-field" >
+                <mat-label>გვარი</mat-label>
+                <input matInput 
+                    formControlName="surname">
+                <mat-error *ngIf="registerForm.get('surname').invalid && formSubmitted">
+                    გთხოვთ შეავსოთ
+                </mat-error>
+            </mat-form-field>
+        </p>
+        <p>
+            <mat-form-field appearance="fill" class="medium-field">
+                <mat-label>აღწერა</mat-label>
+                <input matInput
+                formControlName="description">
+            </mat-form-field>
+        </p>
+      </form>
+      <button mat-raised-button 
+              color="primary" 
+              type="submit" 
+              (click)="onSubmit()">რეგისტრაცია</button>
+    </mat-expansion-panel>
+</mat-accordion>
