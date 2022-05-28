@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { ProfileComponent } from './profile.component';
 import { ProfileDetailsComponent } from './profile-details/profile-details.component';
 import { ProfileActionsComponent } from './profile-actions/profile-actions.component';
-import { RefereeRegisterComponent } from './profile-actions/referee-register/referee-register.component';
+import { RegisterFormComponent } from './profile-actions/register-form/register-form.component';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatExpansionModule } from '@angular/material/expansion';
@@ -18,9 +18,9 @@ import { CommonModule } from '@angular/common';
 @NgModule({
     declarations: [
         ProfileComponent, 
-        ProfileDetailsComponent, 
-        ProfileActionsComponent, 
-        RefereeRegisterComponent 
+        ProfileDetailsComponent,
+        ProfileActionsComponent,
+        RegisterFormComponent,
     ],
     imports: [
         CommonModule,
