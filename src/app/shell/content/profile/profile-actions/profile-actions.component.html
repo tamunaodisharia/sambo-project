@@ -5,6 +5,9 @@
           სპორტსმენის რეგისტრაცია
         </mat-panel-title>
       </mat-expansion-panel-header>
+
+      <register-form [type]="'sportsman'"></register-form>
+
     </mat-expansion-panel>
 
     <mat-expansion-panel>
@@ -13,6 +16,9 @@
             მწვრთნელის რეგისტრაცია
           </mat-panel-title>
         </mat-expansion-panel-header>
+
+        <register-form [type]="'coach'"></register-form>
+
     </mat-expansion-panel>
 
     <mat-expansion-panel>
@@ -22,7 +28,7 @@
         </mat-panel-title>
       </mat-expansion-panel-header>
 
-      <profile-referee-register></profile-referee-register>
+      <register-form [type]="'referee'"></register-form>
       
     </mat-expansion-panel>
 </mat-accordion>
