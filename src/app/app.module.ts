@@ -14,6 +14,7 @@ import { MatIconModule } from '@angular/material/icon';
 
 import { ProfileModule } from './shell/content/profile/profile.module';
 import { HttpClientModule } from '@angular/common/http';
+import { AuthComponent } from './shell/content/auth/auth.component';
 
 @NgModule({
   declarations: [AppComponent, ContentComponent, HeaderComponent],

@@ -1,0 +1,22 @@
+<form [formGroup]="authForm">
+  <p>
+    <mat-form-field appearance="fill" class="small-field">
+      <mat-label>მომხმარებლის სახელი</mat-label>
+      <input matInput formControlName="username" />
+      <mat-error *ngIf="authForm.get('username').invalid && formSubmitted">
+        გთხოვთ შეავსოთ
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill" class="small-field">
+      <mat-label>პაროლი</mat-label>
+      <input matInput formControlName="password" />
+      <mat-error *ngIf="authForm.get('password').invalid && formSubmitted">
+        გთხოვთ შეავსოთ
+      </mat-error>
+    </mat-form-field>
+  </p>
+</form>
+
+<button mat-raised-button color="primary" type="submit" (click)="onSubmit()">
+  ავტორიზაცია
+</button>

@@ -13,27 +13,28 @@ import { MatIconModule } from '@angular/material/icon';
 
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { CommonModule } from '@angular/common';  
+import { CommonModule } from '@angular/common';
+import { AuthComponent } from '../auth/auth.component';
 
 @NgModule({
-    declarations: [
-        ProfileComponent, 
-        ProfileDetailsComponent,
-        ProfileActionsComponent,
-        RegisterFormComponent,
-    ],
-    imports: [
-        CommonModule,
-        ReactiveFormsModule,
-        MatButtonModule,
-        HttpClientModule,
-        MatExpansionModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatIconModule,
-      ],
-    providers: [],
-    bootstrap: [ProfileComponent],
+  declarations: [
+    ProfileComponent,
+    ProfileDetailsComponent,
+    ProfileActionsComponent,
+    RegisterFormComponent,
+    AuthComponent,
+  ],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    MatButtonModule,
+    HttpClientModule,
+    MatExpansionModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatIconModule,
+  ],
+  providers: [],
+  bootstrap: [ProfileComponent],
 })
-
 export class ProfileModule {}

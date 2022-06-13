@@ -16,6 +16,7 @@ export class HeaderComponent implements OnInit {
 
   onAuth() {
     this.isLoggedIn = true;
+    this.router.navigate(['login']);
   }
 
   onProfile() {
