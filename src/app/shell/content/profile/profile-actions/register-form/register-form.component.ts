@@ -2,13 +2,13 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit, Input } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { ProfileDtorageService } from 'src/app/shared/services/services/profile-storage.service';
+import { ProfileStorageService } from 'src/app/shared/services/services/profile-storage.service';
 
 @Component({
   selector: 'register-form',
   templateUrl: './register-form.component.html',
   styleUrls: ['./register-form.component.scss'],
-  providers: [ProfileDtorageService],
+  providers: [ProfileStorageService],
 })
 export class RegisterFormComponent implements OnInit {
   @Input() type: string = '';
@@ -16,7 +16,7 @@ export class RegisterFormComponent implements OnInit {
   registerForm: any;
   formSubmitted: boolean = false;
 
-  constructor(private http: HttpClient, private route: ActivatedRoute, private profileDtorageService: ProfileDtorageService) {}
+  constructor(private http: HttpClient, private route: ActivatedRoute, private profileStorageService: ProfileStorageService) {}
 
   ngOnInit() {
     this.initializeForm();
@@ -35,7 +35,7 @@ export class RegisterFormComponent implements OnInit {
 
     httpOptions.headers = httpOptions.headers.set(
     'Authorization',
-    `Bearer ${this.profileDtorageService.getToken()}`
+    `Bearer ${this.profileStorageService.getToken()}`
     );
 
     return this.http
