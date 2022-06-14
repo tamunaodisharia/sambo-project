@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -12,14 +12,34 @@ export class ProfileDetailsComponent {
   surname: string = 'კუპატაძე';
   position: string = 'მაგარი ვინმე';
   constructor(private http: HttpClient, private router: Router) {}
+
   onlogout() {
-    return this.http.post('http://127.0.0.1:8000/api/logout', {}).subscribe(
-      () => {
-        this.router.navigate(['login']);
-      },
-      (err) => {
-        console.log(err);
-      }
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: 'my-auth-token',
+      }),
+    };
+    httpOptions.headers = httpOptions.headers.set(
+      'Authorization',
+      `Bearer ${localStorage.getItem('token')}`
     );
+    return this.http
+      .post(
+        'http://127.0.0.1:8000/api/logout',
+        {},
+        {
+          headers: httpOptions.headers,
+        }
+      )
+      .subscribe(
+        () => {
+          this.router.navigate(['login']);
+          localStorage.clear();
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
   }
 }

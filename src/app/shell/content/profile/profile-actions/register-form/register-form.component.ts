@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit, Input } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -26,14 +26,25 @@ export class RegisterFormComponent implements OnInit {
     console.log(this.type, 'type');
 
     if (this.registerForm.invalid) return;
-    console.log('validdd');
-    if (this.type === 'coach') {
-      let ragaca = this.route.snapshot.queryParamMap.get('result');
-      console.log(ragaca);
+    console.log('valid registration');
+    if (this.type === 'referee') {
+      const httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+          Authorization: 'my-auth-token',
+        }),
+      };
+      httpOptions.headers = httpOptions.headers.set(
+        'Authorization',
+        `Bearer ${localStorage.getItem('token')}`
+      );
       return this.http
         .post(
-          'http://127.0.0.1:8000/api/athlete-store',
-          this.registerForm.value
+          'http://127.0.0.1:8000/api/referee-store',
+          this.registerForm.value,
+          {
+            headers: httpOptions.headers,
+          }
         )
         .subscribe(
           () => {},
