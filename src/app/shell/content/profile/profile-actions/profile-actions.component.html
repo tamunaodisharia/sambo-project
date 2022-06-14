@@ -1,0 +1,34 @@
+<mat-accordion class="example-headers-align" multi>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          სპორტსმენის რეგისტრაცია
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <register-form [type]="'sportsman'"></register-form>
+
+    </mat-expansion-panel>
+
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            მწვრთნელის რეგისტრაცია
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <register-form [type]="'coach'"></register-form>
+
+    </mat-expansion-panel>
+
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          მსაჯის რეგისტრაცია
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <register-form [type]="'referee'"></register-form>
+      
+    </mat-expansion-panel>
+</mat-accordion>

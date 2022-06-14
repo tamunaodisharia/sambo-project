@@ -8,13 +8,15 @@
     <button mat-button>ჩვენს შესახებ</button>
     <button mat-button>სპორტსმენები</button>
     <button mat-button>შეჯიბრები</button>
-    <button mat-button *ngIf="isLoggedOut; else userLogo">ავტორიზაცია</button>
+    <button mat-button *ngIf="!isLoggedIn; else userLogo" (click)="onAuth()">ავტორიზაცია</button>
   </div>
 </div>
 <ng-template #userLogo>
-  <button mat-button [matMenuTriggerFor]="menu">User</button>
+  <button mat-mini-fab color="primary" [matMenuTriggerFor]="menu">
+    <mat-icon>face</mat-icon>
+  </button>
   <mat-menu #menu="matMenu">
-    <button mat-menu-item>პროფილი</button>
-    <button mat-menu-item>გამოსვლა</button>
+    <button mat-menu-item (click)="onProfile()">პროფილი</button>
+    <button mat-menu-item (click)="onLogOut()">გამოსვლა</button>
   </mat-menu>
 </ng-template>

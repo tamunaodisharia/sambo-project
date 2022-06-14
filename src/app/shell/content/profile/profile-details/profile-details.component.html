@@ -1,0 +1,16 @@
+<img src="../../../../../assets/header/default-user.png" />
+
+<div class="personal-info">
+  <p>სახელი: {{ name }}</p>
+  <p>გვარი: {{ surname }}</p>
+  <p>პოზიცია: {{ position }}</p>
+</div>
+
+<button
+  mat-raised-button
+  color="warn"
+  style="margin-top: 20px"
+  (click)="onlogout()"
+>
+  გასვლა
+</button>
