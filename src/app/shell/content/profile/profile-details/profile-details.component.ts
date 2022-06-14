@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ProfileDtorageService } from 'src/app/shared/services/services/profile-storage.service';
 
 @Component({
   selector: 'app-profile-details',
@@ -11,7 +12,7 @@ export class ProfileDetailsComponent {
   name: string = 'ნინო';
   surname: string = 'კუპატაძე';
   position: string = 'მაგარი ვინმე';
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router, private profileDtorageService: ProfileDtorageService) {}
 
   onlogout() {
     const httpOptions = {
@@ -22,7 +23,7 @@ export class ProfileDetailsComponent {
     };
     httpOptions.headers = httpOptions.headers.set(
       'Authorization',
-      `Bearer ${localStorage.getItem('token')}`
+      `Bearer ${this.profileDtorageService.getToken()}`
     );
     return this.http
       .post(
