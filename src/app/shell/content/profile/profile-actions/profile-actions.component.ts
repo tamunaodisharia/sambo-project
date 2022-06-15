@@ -1,15 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms'
+import { ProfileStorageService } from 'src/app/shared/services/services/profile-storage.service';
 
 @Component({
   selector: 'app-profile-actions',
   templateUrl: './profile-actions.component.html',
-  styleUrls: ['./profile-actions.component.scss']
+  styleUrls: ['./profile-actions.component.scss'],
 })
+export class ProfileActionsComponent implements OnInit {
+  role: any;
 
-export class ProfileActionsComponent {
+  constructor(private profileStorageService: ProfileStorageService) {}
 
-    constructor() {
-    
-    }
+  ngOnInit() {
+    this.role = this.profileStorageService.getRole();
+  }
 }

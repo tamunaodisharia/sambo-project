@@ -30,6 +30,7 @@ export class AuthComponent implements OnInit {
           this.router.navigate(['profile']);
           localStorage.setItem('token', res['token']);
           localStorage.setItem('userRole', res['user']['roles']);
+          localStorage.setItem('id', res['id']);
         },
         (err) => {
           console.log(err);

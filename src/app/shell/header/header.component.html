@@ -5,10 +5,12 @@
   </div>
 
   <div class="navigation">
-    <button mat-button>ჩვენს შესახებ</button>
-    <button mat-button>სპორტსმენები</button>
-    <button mat-button>შეჯიბრები</button>
-    <button mat-button *ngIf="!isLoggedIn; else userLogo" (click)="onAuth()">ავტორიზაცია</button>
+    <button mat-button (click)="onAboutUs()">ჩვენს შესახებ</button>
+    <button mat-button (click)="onAthletes()">სპორტსმენები</button>
+    <button mat-button (click)="onTournaments()">შეჯიბრები</button>
+    <button mat-button *ngIf="!getUser(); else userLogo" (click)="onAuth()">
+      ავტორიზაცია
+    </button>
   </div>
 </div>
 <ng-template #userLogo>

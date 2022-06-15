@@ -1,6 +1,5 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { ProfileStorageService } from 'src/app/shared/services/services/profile-storage.service';
 
 @Component({
@@ -8,39 +7,34 @@ import { ProfileStorageService } from 'src/app/shared/services/services/profile-
   templateUrl: './profile-details.component.html',
   styleUrls: ['./profile-details.component.scss'],
 })
-export class ProfileDetailsComponent {
-  name: string = 'ნინო';
-  surname: string = 'კუპატაძე';
-  position: string = 'მაგარი ვინმე';
-  constructor(private http: HttpClient, private router: Router, private profileStorageService: ProfileStorageService) {}
+export class ProfileDetailsComponent implements OnInit {
+  user: any;
+  role: any;
 
-  onlogout() {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        Authorization: 'my-auth-token',
-      }),
-    };
-    httpOptions.headers = httpOptions.headers.set(
-      'Authorization',
-      `Bearer ${this.profileStorageService.getToken()}`
-    );
-    return this.http
-      .post(
-        'http://127.0.0.1:8000/api/logout',
-        {},
-        {
-          headers: httpOptions.headers,
-        }
-      )
-      .subscribe(
-        () => {
-          this.router.navigate(['login']);
-          localStorage.clear();
-        },
-        (err) => {
-          console.log(err);
-        }
-      );
+  constructor(
+    private profileStorageService: ProfileStorageService,
+    private http: HttpClient
+  ) {}
+
+  ngOnInit() {
+    this.role = this.profileStorageService.getRole();
+    this.getProfileInfo();
+  }
+
+  getProfileInfo(): any {
+    if (this.role === 'coach') {
+      return this.http
+        .get(
+          'http://127.0.0.1:8000/api/coaches/' +
+            this.profileStorageService.getUserId()
+        )
+        .subscribe(
+          (res: any) => {
+            console.log(res['coach'], 'res');
+            this.user = res['coach'];
+          },
+          (err) => {}
+        );
+    }
   }
 }

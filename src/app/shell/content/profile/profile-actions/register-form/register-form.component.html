@@ -24,9 +24,26 @@
   </p>
 
   <p *ngIf="this.type === 'athlete'">
+    <!-- <mat-form-field appearance="fill" class="small-field">
+      <mat-label>დაბადების თარიღი</mat-label>
+      <input
+        matInput
+        [matDatepicker]="picker"
+        formControlName="date_of_birth"
+      />
+      <mat-hint>თთ/დდ/წწწწ</mat-hint>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      <mat-error
+        *ngIf="registerForm.get('date_of_birth').invalid && formSubmitted"
+      >
+        გთხოვთ შეავსოთ
+      </mat-error>
+    </mat-form-field> -->
     <mat-form-field appearance="fill" class="small-field">
       <mat-label>დაბადების თარიღი</mat-label>
       <input matInput formControlName="date_of_birth" />
+
       <mat-error
         *ngIf="registerForm.get('date_of_birth').invalid && formSubmitted"
       >
@@ -70,8 +87,22 @@
     <mat-form-field appearance="fill" class="small-field">
       <mat-label>მეილი</mat-label>
       <input matInput formControlName="email" />
-      <mat-error *ngIf="registerForm.get('club').invalid && formSubmitted">
+      <mat-error *ngIf="registerForm.get('email').invalid && formSubmitted">
         გთხოვთ შეავსოთ სწორი ფორმატით
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill" class="small-field">
+      <mat-label>მომხმარებლის სახელი</mat-label>
+      <input matInput formControlName="username" />
+      <mat-error *ngIf="registerForm.get('username').invalid && formSubmitted">
+        გთხოვთ შეავსოთ
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill" class="small-field">
+      <mat-label>ტელეფონის ნომერი</mat-label>
+      <input matInput formControlName="tel" />
+      <mat-error *ngIf="registerForm.get('tel').invalid && formSubmitted">
+        გთხოვთ შეავსოთ
       </mat-error>
     </mat-form-field>
     <mat-form-field appearance="fill" class="small-field">
@@ -81,7 +112,29 @@
         გთხოვთ შეავსოთ
       </mat-error>
     </mat-form-field>
+    <mat-form-field appearance="fill" class="small-field">
+      <mat-label>გაიმეორეთ პაროლი</mat-label>
+      <input matInput formControlName="password_confirmation" />
+      <mat-error
+        *ngIf="
+          registerForm.get('password_confirmation').invalid && formSubmitted
+        "
+      >
+        გთხოვთ შეავსოთ
+      </mat-error>
+    </mat-form-field>
   </p>
+  <!-- <p>
+    <mat-form-field appearance="fill" class="small-field">
+      <mat-label>ფოტო</mat-label>
+      <input
+        matInput
+        formControlName="profile_picture"
+        type="file"
+        accept=".jpeg,.png,.jpg"
+      />
+    </mat-form-field>
+  </p> -->
 </form>
 
 <button mat-raised-button color="primary" type="submit" (click)="onSubmit()">

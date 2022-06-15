@@ -15,9 +15,19 @@ import { MatIconModule } from '@angular/material/icon';
 import { ProfileModule } from './shell/content/profile/profile.module';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthComponent } from './shell/content/auth/auth.component';
+import { AthletesComponent } from './shell/content/pages/athletes/athletes.component';
+import { AboutUsComponent } from './shell/content/pages/about-us/about-us.component';
+import { TournamentsComponent } from './shell/content/pages/tournaments/tournaments.component';
 
 @NgModule({
-  declarations: [AppComponent, ContentComponent, HeaderComponent],
+  declarations: [
+    AppComponent,
+    ContentComponent,
+    HeaderComponent,
+    AthletesComponent,
+    AboutUsComponent,
+    TournamentsComponent,
+  ],
   imports: [
     ProfileModule,
     BrowserModule,
