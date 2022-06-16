@@ -18,6 +18,7 @@ export class RegisterFormComponent implements OnInit {
   registerForm: any;
   formSubmitted: boolean = false;
   role: any;
+  referees: any;
 
   constructor(
     private http: HttpClient,
@@ -28,10 +29,26 @@ export class RegisterFormComponent implements OnInit {
 
   ngOnInit() {
     this.initializeForm();
+    if (this.type === 'tournament') {
+      this.getReferees();
+    }
+  }
+
+  getReferees() {
+    return this.http.get('http://127.0.0.1:8000/api/referees').subscribe(
+      (referees: any) => {
+        console.log(referees);
+        this.referees = referees?.data;
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
 
   onSubmit() {
     this.formSubmitted = true;
+    console.log(this.registerForm);
     if (this.registerForm.invalid) return;
 
     const httpOptions = {
@@ -118,8 +135,38 @@ export class RegisterFormComponent implements OnInit {
         new FormControl('', Validators.required)
       );
       this.registerForm.addControl('profile_picture', new FormControl(''));
+    } else if (this.type === 'tournament') {
+      this.registerForm.removeControl('name');
+      this.registerForm.removeControl('surname');
+      this.registerForm.removeControl('profile_picture');
+      this.registerForm.addControl(
+        'title',
+        new FormControl('', Validators.required)
+      );
+      this.registerForm.addControl(
+        'location',
+        new FormControl('', Validators.required)
+      );
+      this.registerForm.addControl(
+        'start_date',
+        new FormControl('', Validators.required)
+      );
+      this.registerForm.addControl(
+        'end_date',
+        new FormControl('', Validators.required)
+      );
+      this.registerForm.addControl(
+        'referees',
+        new FormControl([], Validators.required)
+      );
     }
   }
+
+  // 'title' => 'required',
+  //           'location' => 'required',
+  //           'start_date' => 'required|date',
+  //           'end_date' => 'required|date',
+  //           'referees' => 'array'
 
   private initializeForm() {
     this.registerForm = new FormGroup({

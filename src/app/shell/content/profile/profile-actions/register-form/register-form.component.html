@@ -1,5 +1,5 @@
 <form [formGroup]="registerForm">
-  <p>
+  <p *ngIf="type !== 'tournament'">
     <mat-form-field appearance="fill" class="small-field">
       <mat-label>სახელი</mat-label>
       <input matInput formControlName="name" />
@@ -107,14 +107,14 @@
     </mat-form-field>
     <mat-form-field appearance="fill" class="small-field">
       <mat-label>პაროლი</mat-label>
-      <input matInput formControlName="password" />
+      <input type="password" matInput formControlName="password" />
       <mat-error *ngIf="registerForm.get('password').invalid && formSubmitted">
         გთხოვთ შეავსოთ
       </mat-error>
     </mat-form-field>
     <mat-form-field appearance="fill" class="small-field">
       <mat-label>გაიმეორეთ პაროლი</mat-label>
-      <input matInput formControlName="password_confirmation" />
+      <input type="password" matInput formControlName="password_confirmation" />
       <mat-error
         *ngIf="
           registerForm.get('password_confirmation').invalid && formSubmitted
@@ -135,6 +135,65 @@
       />
     </mat-form-field>
   </p> -->
+  <p *ngIf="type !== 'tournament'">
+    <mat-label for="avatar">ფოტო</mat-label>
+    <input
+      formControlName="profile_picture"
+      type="file"
+      accept=".jpeg,.png,.jpg"
+      id="avatar"
+      name="avatar"
+    />
+  </p>
+  <p *ngIf="type === 'tournament'">
+    <mat-form-field appearance="fill" class="small-field">
+      <mat-label>დასახელება</mat-label>
+      <input matInput formControlName="title" />
+      <mat-error *ngIf="registerForm.get('title').invalid && formSubmitted">
+        გთხოვთ შეავსოთ
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill" class="small-field">
+      <mat-label>ადგილმდებარეობა</mat-label>
+      <input matInput formControlName="location" />
+      <mat-error *ngIf="registerForm.get('location').invalid && formSubmitted">
+        გთხოვთ შეავსოთ
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill" class="small-field">
+      <mat-label>დაწყების თარიღი</mat-label>
+      <input matInput formControlName="start_date" />
+      <mat-error
+        *ngIf="registerForm.get('start_date').invalid && formSubmitted"
+      >
+        გთხოვთ შეავსოთ
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill" class="small-field">
+      <mat-label>დასრულების თარიღი</mat-label>
+      <input matInput formControlName="end_date" />
+      <mat-error *ngIf="registerForm.get('end_date').invalid && formSubmitted">
+        გთხოვთ შეავსოთ
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="medium-field">
+      <mat-label>მსაჯები</mat-label>
+      <mat-select formControlName="referees" multiple>
+        <mat-option *ngFor="let referee of referees" [value]="referee.id">{{
+          referee.name + " " + referee.surname
+        }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- <mat-form-field appearance="fill" class="small-field">
+      <mat-label>მსაჯები</mat-label>
+      <input matInput formControlName="referees" />
+      <mat-error *ngIf="registerForm.get('referees').invalid && formSubmitted">
+        გთხოვთ შეავსოთ
+      </mat-error>
+    </mat-form-field> -->
+  </p>
 </form>
 
 <button mat-raised-button color="primary" type="submit" (click)="onSubmit()">

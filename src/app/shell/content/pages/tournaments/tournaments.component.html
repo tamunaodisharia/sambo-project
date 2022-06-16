@@ -1,1 +1,49 @@
-<p>tournaments works!</p>
+<div style="display: flex; align-items: center; justify-content: flex-start">
+  <mat-card
+    *ngFor="let tournament of tournaments"
+    style="width: 200px; margin: 20px"
+  >
+    <mat-card-title>{{ tournament?.title }}</mat-card-title>
+    <mat-card-subtitle>{{ tournament?.location }}</mat-card-subtitle>
+    <mat-card-subtitle>{{ tournament?.start_date }}</mat-card-subtitle>
+    <mat-card-subtitle>{{ tournament?.end_date }}</mat-card-subtitle>
+    <mat-card-subtitle> მსაჯები:</mat-card-subtitle>
+    <mat-card-subtitle *ngFor="let referee of tournament?.referees">
+      {{ referee?.name + " " + referee?.surname }}
+    </mat-card-subtitle>
+    <mat-card-actions>
+      <button
+        *ngIf="role === 'coach'"
+        mat-raised-button
+        color="primary"
+        (click)="getAthletes(tournament)"
+      >
+        + სპორტსმენების დამატება
+      </button>
+    </mat-card-actions>
+
+    <div *ngIf="tournament?.athletesArray?.length">
+      <form [formGroup]="registerForm">
+        <mat-form-field appearance="fill" class="medium-field">
+          <mat-label>სპორტსმენები</mat-label>
+          <mat-select multiple formControlName="athletes">
+            <mat-option
+              *ngFor="let athlete of tournament?.athletesArray"
+              [value]="athlete.id"
+              >{{ athlete.name + " " + athlete.surname }}</mat-option
+            >
+          </mat-select>
+        </mat-form-field>
+
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="addAthletes(tournament)"
+        >
+          დამატება
+        </button>
+      </form>
+    </div>
+  </mat-card>
+  <br />
+</div>

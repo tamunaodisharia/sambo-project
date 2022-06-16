@@ -1,4 +1,5 @@
 <div class="auth-form">
+  <h1 id="heading">ავტორიზაცია</h1>
   <form [formGroup]="authForm">
     <p>
       <mat-form-field appearance="fill">
@@ -10,7 +11,7 @@
       </mat-form-field>
       <mat-form-field appearance="fill">
         <mat-label>პაროლი</mat-label>
-        <input matInput formControlName="password" />
+        <input type="password" matInput formControlName="password" />
         <mat-error *ngIf="authForm.get('password').invalid && formSubmitted">
           გთხოვთ შეავსოთ
         </mat-error>

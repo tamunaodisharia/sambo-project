@@ -18,6 +18,10 @@ import { AuthComponent } from './shell/content/auth/auth.component';
 import { AthletesComponent } from './shell/content/pages/athletes/athletes.component';
 import { AboutUsComponent } from './shell/content/pages/about-us/about-us.component';
 import { TournamentsComponent } from './shell/content/pages/tournaments/tournaments.component';
+import { MatCardModule } from '@angular/material/card';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -38,6 +42,10 @@ import { TournamentsComponent } from './shell/content/pages/tournaments/tourname
     HttpClientModule,
     MatMenuModule,
     MatIconModule,
+    MatCardModule,
+    MatSelectModule,
+    MatFormFieldModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

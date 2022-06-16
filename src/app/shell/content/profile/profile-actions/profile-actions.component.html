@@ -22,4 +22,12 @@
 
     <register-form [type]="'referee'"></register-form>
   </mat-expansion-panel>
+
+  <mat-expansion-panel *ngIf="role === 'admin'">
+    <mat-expansion-panel-header>
+      <mat-panel-title> ტურნირის დამატება </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <register-form [type]="'tournament'"></register-form>
+  </mat-expansion-panel>
 </mat-accordion>
