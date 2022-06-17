@@ -12,6 +12,8 @@ export class TournamentsComponent implements OnInit {
   tournaments: any;
   referees: any;
   registerForm: any;
+  athletes: any;
+  addAthletsBtnIsDisabled: boolean = false;
 
   constructor(
     private profileStorageService: ProfileStorageService,
@@ -22,6 +24,7 @@ export class TournamentsComponent implements OnInit {
     this.initializeForm();
     this.role = this.profileStorageService.getRole();
     this.getTurnaments();
+    this.getAthletes();
   }
 
   getTurnaments() {
@@ -36,7 +39,7 @@ export class TournamentsComponent implements OnInit {
     );
   }
 
-  getAthletes(tournament: any) {
+  getAthletes() {
     return this.http
       .get(
         'http://127.0.0.1:8000/api/coaches/' +
@@ -45,16 +48,27 @@ export class TournamentsComponent implements OnInit {
       )
       .subscribe(
         (athletes: any) => {
-          console.log(tournament, 'tournament');
-          console.log(athletes, 'athletes');
-          tournament.nino = 'nino';
-          tournament.athletesArray = athletes?.data;
-          console.log(tournament, '----');
+          // tournament.athletesArray = athletes?.data;
+          this.athletes = athletes?.data;
         },
         (err) => {
           console.log(err);
         }
       );
+  }
+
+  setAthletes(tournament?: any) {
+    if (!tournament?.athletesArray?.length) {
+      this.addAthletsBtnIsDisabled = true;
+      tournament.athletesArray = this.athletes;
+    } 
+  }
+
+  delAthletes(tournament?: any) {
+    if (!!tournament?.athletesArray?.length) {
+      this.addAthletsBtnIsDisabled = false;
+      tournament.athletesArray = [];
+    }
   }
 
   addAthletes(tournament: any) {
@@ -87,6 +101,8 @@ export class TournamentsComponent implements OnInit {
       .subscribe(
         (res: any) => {
           console.log(this.registerForm.value.athletes, 'successes');
+          tournament.athletesArray = [];
+
         },
         (err) => {
           console.log(err);

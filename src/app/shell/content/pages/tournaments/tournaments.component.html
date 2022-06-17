@@ -11,14 +11,23 @@
     <mat-card-subtitle *ngFor="let referee of tournament?.referees">
       {{ referee?.name + " " + referee?.surname }}
     </mat-card-subtitle>
+    <mat-card-subtitle> ათლეტები:</mat-card-subtitle>
+    <mat-card-subtitle *ngFor="let athlete of tournament?.athletes">
+      {{ athlete?.name + " " + athlete?.surname }}
+    </mat-card-subtitle>
     <mat-card-actions>
       <button
-        *ngIf="role === 'coach'"
+        *ngIf="role === 'coach' && !tournament?.athletesArray?.length"
+        [disabled]="addAthletsBtnIsDisabled"
         mat-raised-button
         color="primary"
-        (click)="getAthletes(tournament)"
-      >
-        + სპორტსმენების დამატება
+        (click)="setAthletes(tournament)"> + სპორტსმენების დამატება
+      </button>
+      <button
+        *ngIf="role === 'coach' && !!tournament?.athletesArray?.length"
+        mat-raised-button
+        color="warn"
+        (click)="delAthletes(tournament)"> დახურვა 
       </button>
     </mat-card-actions>
 
@@ -36,11 +45,10 @@
         </mat-form-field>
 
         <button
+          disabled="true"
           mat-raised-button
           color="primary"
-          (click)="addAthletes(tournament)"
-        >
-          დამატება
+          (click)="addAthletes(tournament)"> დამატება
         </button>
       </form>
     </div>
