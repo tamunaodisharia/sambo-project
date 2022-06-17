@@ -45,7 +45,7 @@
         </mat-form-field>
 
         <button
-          disabled="true"
+          [disabled]="!registerForm.value.athletes.length"
           mat-raised-button
           color="primary"
           (click)="addAthletes(tournament)"> დამატება

@@ -68,6 +68,7 @@ export class TournamentsComponent implements OnInit {
     if (!!tournament?.athletesArray?.length) {
       this.addAthletsBtnIsDisabled = false;
       tournament.athletesArray = [];
+      this.registerForm.value.athletes = [];
     }
   }
 
@@ -102,6 +103,7 @@ export class TournamentsComponent implements OnInit {
         (res: any) => {
           console.log(this.registerForm.value.athletes, 'successes');
           tournament.athletesArray = [];
+          this.registerForm.value.athletes = [];
 
         },
         (err) => {
