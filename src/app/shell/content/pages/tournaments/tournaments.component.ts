@@ -23,11 +23,11 @@ export class TournamentsComponent implements OnInit {
   ngOnInit(): void {
     this.initializeForm();
     this.role = this.profileStorageService.getRole();
-    this.getTurnaments();
+    this.getTournaments();
     this.getAthletes();
   }
 
-  getTurnaments() {
+  getTournaments() {
     return this.http.get('http://127.0.0.1:8000/api/tournaments').subscribe(
       (tournaments: any) => {
         this.tournaments = tournaments?.data;
@@ -61,11 +61,12 @@ export class TournamentsComponent implements OnInit {
     if (!tournament?.athletesArray?.length) {
       this.addAthletsBtnIsDisabled = true;
       tournament.athletesArray = this.athletes;
-    } 
+    }
   }
 
   delAthletes(tournament?: any) {
     if (!!tournament?.athletesArray?.length) {
+      console.log('shemovida');
       this.addAthletsBtnIsDisabled = false;
       tournament.athletesArray = [];
       this.registerForm.value.athletes = [];
@@ -77,6 +78,7 @@ export class TournamentsComponent implements OnInit {
       this.registerForm.value.athletes,
       'this.registerForm.athletes.value,'
     );
+
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -101,10 +103,13 @@ export class TournamentsComponent implements OnInit {
       )
       .subscribe(
         (res: any) => {
+          this.addAthletsBtnIsDisabled = false;
+          tournament.athletesArray = [];
+          this.registerForm.value.athletes = [];
           console.log(this.registerForm.value.athletes, 'successes');
           tournament.athletesArray = [];
           this.registerForm.value.athletes = [];
-
+          this.getTournaments();
         },
         (err) => {
           console.log(err);

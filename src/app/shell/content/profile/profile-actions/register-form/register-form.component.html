@@ -3,7 +3,7 @@
     <mat-form-field appearance="fill" class="small-field">
       <mat-label>სახელი</mat-label>
       <input matInput formControlName="name" />
-      <mat-error *ngIf="registerForm.get('name').invalid && formSubmitted">
+      <mat-error *ngIf="registerForm.get('name').invalid && this.formSubmitted">
         გთხოვთ შეავსოთ
       </mat-error>
     </mat-form-field>
@@ -180,9 +180,11 @@
     <mat-form-field appearance="fill" class="medium-field">
       <mat-label>მსაჯები</mat-label>
       <mat-select formControlName="referees" multiple>
-        <mat-option *ngFor="let referee of referees" [value]="referee.id">{{
-          referee.name + " " + referee.surname
-        }}</mat-option>
+        <mat-option
+          *ngFor="let referee of getAllReferees()"
+          [value]="referee.id"
+          >{{ referee.name + " " + referee.surname }}</mat-option
+        >
       </mat-select>
     </mat-form-field>
 

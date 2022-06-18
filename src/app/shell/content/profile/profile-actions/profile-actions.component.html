@@ -7,7 +7,7 @@
     <register-form [type]="'athlete'"></register-form>
   </mat-expansion-panel>
 
-  <mat-expansion-panel>
+  <mat-expansion-panel *ngIf="role === 'admin'">
     <mat-expansion-panel-header>
       <mat-panel-title> მწვრთნელის რეგისტრაცია </mat-panel-title>
     </mat-expansion-panel-header>
@@ -15,7 +15,7 @@
     <register-form [type]="'coach'"></register-form>
   </mat-expansion-panel>
 
-  <mat-expansion-panel>
+  <mat-expansion-panel *ngIf="role === 'admin'">
     <mat-expansion-panel-header>
       <mat-panel-title> მსაჯის რეგისტრაცია </mat-panel-title>
     </mat-expansion-panel-header>

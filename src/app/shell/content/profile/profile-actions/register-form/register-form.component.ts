@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectorRef } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ProfileStorageService } from 'src/app/shared/services/services/profile-storage.service';
@@ -24,7 +24,8 @@ export class RegisterFormComponent implements OnInit {
     private http: HttpClient,
     private route: ActivatedRoute,
     private profileStorageService: ProfileStorageService,
-    public datepipe: DatePipe
+    public datepipe: DatePipe,
+    private changeDetectorRef: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
@@ -38,6 +39,7 @@ export class RegisterFormComponent implements OnInit {
     return this.http.get('http://127.0.0.1:8000/api/referees').subscribe(
       (referees: any) => {
         console.log(referees);
+        this.changeDetectorRef.detectChanges();
         this.referees = referees?.data;
       },
       (err) => {
@@ -45,7 +47,9 @@ export class RegisterFormComponent implements OnInit {
       }
     );
   }
-
+  getAllReferees() {
+    return this.referees;
+  }
   onSubmit() {
     this.formSubmitted = true;
     console.log(this.registerForm);
@@ -81,9 +85,15 @@ export class RegisterFormComponent implements OnInit {
         }
       )
       .subscribe(
-        () => {},
+        () => {
+          this.registerForm.reset();
+          alert('წარმატებით დარეგისტრირდა ბაზაში');
+
+          this.getReferees();
+        },
         (err) => {
           console.log(err);
+          alert('დაფიქსირდა შეცდომა, შეამოწმეთ ველები');
         }
       );
   }
