@@ -1,11 +1,11 @@
 <img src="../../../../../assets/header/default-user.png" />
 
 <div class="personal-info" *ngIf="role === 'coach'">
-  <p>სახელი: {{ user.name }}</p>
-  <p>გვარი: {{ user.surname }}</p>
-  <p>მომხმარებლის სახელი: {{ user.username }}</p>
-  <p>ელექტრონული ფოსტა: {{ user.email }}</p>
-  <p>ტელეფონის ნომერი: {{ user.tel }}</p>
+  <p>სახელი: {{ user?.name }}</p>
+  <p>გვარი: {{ user?.surname }}</p>
+  <p>მომხმარებლის სახელი: {{ user?.username }}</p>
+  <p>ელექტრონული ფოსტა: {{ user?.email }}</p>
+  <p>ტელეფონის ნომერი: {{ user?.tel }}</p>
 </div>
 <div class="personal-info" *ngIf="role === 'admin'">
   <p>სახელი: Admin</p>

@@ -1,24 +1,41 @@
 <div style="display: flex; align-items: center; justify-content: flex-start">
   <mat-card
     *ngFor="let tournament of tournaments"
-    style="width: 200px; margin: 20px"
+    style="width: 300px; margin: 20px; min-height: 500px"
   >
     <mat-card-title>{{ tournament?.title }}</mat-card-title>
-    <mat-card-subtitle>{{ tournament?.location }}</mat-card-subtitle>
-    <mat-card-subtitle>{{ tournament?.start_date }}</mat-card-subtitle>
-    <mat-card-subtitle>{{ tournament?.end_date }}</mat-card-subtitle>
-    <mat-card-subtitle> მსაჯები:</mat-card-subtitle>
+    <mat-card-subtitle>ლოკაცია: {{ tournament?.location }}</mat-card-subtitle>
+    <mat-card-subtitle
+      >დაწყების თარიღი: {{ tournament?.start_date }}</mat-card-subtitle
+    >
+    <mat-card-subtitle
+      >დასრულების თარიღი: {{ tournament?.end_date }}</mat-card-subtitle
+    >
+    <mat-card-subtitle style="font-weight: bold"> მსაჯები:</mat-card-subtitle>
     <mat-card-subtitle *ngFor="let referee of tournament?.referees">
       {{ referee?.name + " " + referee?.surname }}
     </mat-card-subtitle>
+    <mat-card-subtitle style="font-weight: bold"> ათლეტები:</mat-card-subtitle>
+    <mat-card-subtitle *ngFor="let athlete of tournament?.athletes">
+      {{ athlete?.name + " " + athlete?.surname }}
+    </mat-card-subtitle>
     <mat-card-actions>
       <button
-        *ngIf="role === 'coach'"
+        *ngIf="role === 'coach' && !tournament?.athletesArray?.length"
+        [disabled]="addAthletsBtnIsDisabled"
         mat-raised-button
         color="primary"
-        (click)="getAthletes(tournament)"
+        (click)="setAthletes(tournament)"
       >
         + სპორტსმენების დამატება
+      </button>
+      <button
+        *ngIf="role === 'coach' && !!tournament?.athletesArray?.length"
+        mat-raised-button
+        color="warn"
+        (click)="delAthletes(tournament)"
+      >
+        დახურვა
       </button>
     </mat-card-actions>
 
@@ -36,6 +53,7 @@
         </mat-form-field>
 
         <button
+          [disabled]="!registerForm.value.athletes.length"
           mat-raised-button
           color="primary"
           (click)="addAthletes(tournament)"

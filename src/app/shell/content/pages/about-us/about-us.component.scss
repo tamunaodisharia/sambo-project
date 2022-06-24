@@ -1,0 +1,38 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-items: space-around;
+  flex-direction: row;
+  background-color: #111111;
+  color: white;
+  padding: 64px;
+  padding-top: 0;
+  overflow: hidden;
+  h1 {
+    font-size: 40px;
+    font-weight: bold;
+  }
+
+  .first {
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.7);
+    text-align: left;
+  }
+  .second {
+    font-size: 24px;
+    font-weight: bold;
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 32px;
+  }
+  .info {
+    padding: 16px 64px;
+    display: flex;
+    gap: 16px;
+    flex-direction: column;
+  }
+}
+
+.about-us-image {
+  width: 50%;
+  height: 80vh;
+}
