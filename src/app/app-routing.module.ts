@@ -13,6 +13,11 @@ const routes: Routes = [
     path: '',
     children: [
       {
+        path: '',
+        redirectTo: 'about-us',
+        pathMatch: 'full',
+      },
+      {
         path: 'profile',
         component: ProfileComponent,
         canActivate: [LoggedOutGuard],

@@ -30,7 +30,6 @@ export class ProfileDetailsComponent implements OnInit {
         )
         .subscribe(
           (res: any) => {
-            console.log(res['coach'], 'res');
             this.user = res['coach'];
           },
           (err) => {}

@@ -20,21 +20,17 @@ export class AuthComponent implements OnInit {
     this.formSubmitted = true;
 
     if (this.authForm.invalid) return;
-    console.log('validdd');
 
     return this.http
       .post('http://127.0.0.1:8000/api/login', this.authForm.value)
       .subscribe(
         (res: any) => {
-          console.log(res.token);
           this.router.navigate(['profile']);
           localStorage.setItem('token', res['token']);
           localStorage.setItem('userRole', res['user']['roles']);
           localStorage.setItem('id', res['id']);
         },
-        (err) => {
-          console.log(err);
-        }
+        (err) => {}
       );
   }
   private initializeForm() {
