@@ -10,8 +10,6 @@ import { ProfileStorageService } from 'src/app/shared/services/services/profile-
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
-  isLoggedIn = false; // needs change
-
   constructor(
     private profileStorageService: ProfileStorageService,
     private http: HttpClient,
@@ -24,8 +22,11 @@ export class HeaderComponent implements OnInit {
     return !!this.profileStorageService.getToken();
   }
 
+  onLogoClick() {
+    this.router.navigate(['about-us']);
+  }
+
   onAuth() {
-    this.isLoggedIn = true;
     this.router.navigate(['login']);
   }
   onAboutUs() {
@@ -60,15 +61,10 @@ export class HeaderComponent implements OnInit {
           headers: httpOptions.headers,
         }
       )
-      .subscribe(
-        () => {
-          this.router.navigate(['login']);
-          localStorage.clear();
-        },
-        (err) => {
-          console.log(err);
-        }
-      );
+      .subscribe(() => {
+        this.router.navigate(['login']);
+        localStorage.clear();
+      });
     this.router.navigate(['login']);
   }
 }

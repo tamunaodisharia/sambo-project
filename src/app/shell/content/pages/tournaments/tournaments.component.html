@@ -1,27 +1,72 @@
-<div style="display: flex; align-items: center; justify-content: flex-start">
+<div
+  style="
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 10px;
+    margin: 20px;
+  "
+>
   <mat-card
     *ngFor="let tournament of tournaments"
-    style="width: 300px; margin: 20px; min-height: 500px"
+    style="width: 100%; min-height: 350px; box-sizing: border-box"
   >
-    <mat-card-title>{{ tournament?.title }}</mat-card-title>
-    <mat-card-subtitle>ლოკაცია: {{ tournament?.location }}</mat-card-subtitle>
-    <mat-card-subtitle
-      >დაწყების თარიღი: {{ tournament?.start_date }}</mat-card-subtitle
+    <mat-card-title style="color: #3f51b5">{{
+      tournament?.title
+    }}</mat-card-title>
+    <div class="section" style="overflow-y: auto; height: 220px">
+      <mat-card-subtitle style="font-weight: bold"
+        ><span style="color: black; font-weight: bold">ლოკაცია: </span>
+        {{ tournament?.location }}</mat-card-subtitle
+      >
+      <mat-card-subtitle style="font-weight: bold"
+        ><span style="color: black; font-weight: bold">დაწყების თარიღი: </span>
+        {{ tournament?.start_date }}</mat-card-subtitle
+      >
+      <mat-card-subtitle style="font-weight: bold"
+        ><span style="color: black; font-weight: bold">დასრულების თარიღი:</span>
+        {{ tournament?.end_date }}</mat-card-subtitle
+      >
+      <mat-card-subtitle style="color: black; font-weight: bold">
+        მსაჯები:</mat-card-subtitle
+      >
+      <mat-card-subtitle
+        *ngFor="let referee of tournament?.referees"
+        style="font-weight: bold"
+      >
+        {{ referee?.name + " " + referee?.surname }}
+      </mat-card-subtitle>
+
+      <mat-card-subtitle
+        *ngIf="!tournament?.referees.length"
+        style="font-weight: bold"
+        >არ არის დამატებული</mat-card-subtitle
+      >
+
+      <mat-card-subtitle style="color: black; font-weight: bold">
+        ათლეტები:</mat-card-subtitle
+      >
+      <mat-card-subtitle
+        *ngFor="let athlete of tournament?.athletes"
+        style="font-weight: bold"
+      >
+        {{ athlete?.name + " " + athlete?.surname }}
+      </mat-card-subtitle>
+      <mat-card-subtitle
+        *ngIf="!tournament?.athletes.length"
+        style="font-weight: bold"
+        >არ არის დამატებული</mat-card-subtitle
+      >
+    </div>
+    <mat-card-actions
+      style="display: flex; align-items: center; justify-content: center"
     >
-    <mat-card-subtitle
-      >დასრულების თარიღი: {{ tournament?.end_date }}</mat-card-subtitle
-    >
-    <mat-card-subtitle style="font-weight: bold"> მსაჯები:</mat-card-subtitle>
-    <mat-card-subtitle *ngFor="let referee of tournament?.referees">
-      {{ referee?.name + " " + referee?.surname }}
-    </mat-card-subtitle>
-    <mat-card-subtitle style="font-weight: bold"> ათლეტები:</mat-card-subtitle>
-    <mat-card-subtitle *ngFor="let athlete of tournament?.athletes">
-      {{ athlete?.name + " " + athlete?.surname }}
-    </mat-card-subtitle>
-    <mat-card-actions>
       <button
-        *ngIf="role === 'coach' && !tournament?.athletesArray?.length"
+        *ngIf="
+          role === 'coach' &&
+          !tournament?.athletesArray?.length &&
+          !!athletes?.length &&
+          tournament?.canAddAthletes
+        "
         [disabled]="addAthletsBtnIsDisabled"
         mat-raised-button
         color="primary"
@@ -40,7 +85,15 @@
     </mat-card-actions>
 
     <div *ngIf="tournament?.athletesArray?.length">
-      <form [formGroup]="registerForm">
+      <form
+        [formGroup]="registerForm"
+        style="
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-direction: column;
+        "
+      >
         <mat-form-field appearance="fill" class="medium-field">
           <mat-label>სპორტსმენები</mat-label>
           <mat-select multiple formControlName="athletes">

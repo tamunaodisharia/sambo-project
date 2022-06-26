@@ -1,6 +1,5 @@
-
 .example-headers-align {
-    width: 100%;
+  width: 100%;
 }
 .example-headers-align .mat-expansion-panel-header-title,
 .example-headers-align .mat-expansion-panel-header-description {
@@ -8,6 +7,9 @@
 }
 
 .example-headers-align .mat-expansion-panel-header-description {
-    justify-content: space-between;
-    align-items: center;
+  justify-content: space-between;
+  align-items: center;
+}
+table {
+  width: 100%;
 }

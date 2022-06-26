@@ -13,11 +13,13 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatSelectModule } from '@angular/material/select';
+import { MatTableModule } from '@angular/material/table';
 
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { AuthComponent } from '../auth/auth.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -39,6 +41,8 @@ import { AuthComponent } from '../auth/auth.component';
     MatDatepickerModule,
     MatNativeDateModule,
     MatSelectModule,
+    MatTableModule,
+    MatPaginatorModule,
   ],
   providers: [],
   bootstrap: [ProfileComponent],

@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ProfileStorageService } from 'src/app/shared/services/services/profile-storage.service';
+import { map } from 'rxjs/operators';
 @Component({
   selector: 'app-tournaments',
   templateUrl: './tournaments.component.html',
@@ -28,15 +29,22 @@ export class TournamentsComponent implements OnInit {
   }
 
   getTournaments() {
-    return this.http.get('http://127.0.0.1:8000/api/tournaments').subscribe(
-      (tournaments: any) => {
-        this.tournaments = tournaments?.data;
-        console.log(this.tournaments[0].referees);
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
+    return this.http
+      .get('http://127.0.0.1:8000/api/tournaments')
+      .pipe(
+        map((results: any) => {
+          return results?.data.sort((a: any, b: any) => {
+            return new Date(a.start_date).getTime() <
+              new Date(b.start_date).getTime()
+              ? 1
+              : -1;
+          });
+        })
+      )
+      .subscribe((tournaments: any) => {
+        this.tournaments = tournaments;
+        this.canAddAthletes();
+      });
   }
 
   getAthletes() {
@@ -46,15 +54,9 @@ export class TournamentsComponent implements OnInit {
           this.profileStorageService.getUserId() +
           '/getAthletes'
       )
-      .subscribe(
-        (athletes: any) => {
-          // tournament.athletesArray = athletes?.data;
-          this.athletes = athletes?.data;
-        },
-        (err) => {
-          console.log(err);
-        }
-      );
+      .subscribe((athletes: any) => {
+        this.athletes = athletes?.data;
+      });
   }
 
   setAthletes(tournament?: any) {
@@ -64,9 +66,15 @@ export class TournamentsComponent implements OnInit {
     }
   }
 
+  canAddAthletes() {
+    this.tournaments.forEach((tournament: any) => {
+      tournament.canAddAthletes =
+        new Date(tournament?.start_date).getTime() > new Date().getTime();
+    });
+  }
+
   delAthletes(tournament?: any) {
     if (!!tournament?.athletesArray?.length) {
-      console.log('shemovida');
       this.addAthletsBtnIsDisabled = false;
       tournament.athletesArray = [];
       this.registerForm.value.athletes = [];
@@ -74,11 +82,6 @@ export class TournamentsComponent implements OnInit {
   }
 
   addAthletes(tournament: any) {
-    console.log(
-      this.registerForm.value.athletes,
-      'this.registerForm.athletes.value,'
-    );
-
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -101,20 +104,14 @@ export class TournamentsComponent implements OnInit {
           headers: httpOptions.headers,
         }
       )
-      .subscribe(
-        (res: any) => {
-          this.addAthletsBtnIsDisabled = false;
-          tournament.athletesArray = [];
-          this.registerForm.value.athletes = [];
-          console.log(this.registerForm.value.athletes, 'successes');
-          tournament.athletesArray = [];
-          this.registerForm.value.athletes = [];
-          this.getTournaments();
-        },
-        (err) => {
-          console.log(err);
-        }
-      );
+      .subscribe((res: any) => {
+        this.addAthletsBtnIsDisabled = false;
+        tournament.athletesArray = [];
+        this.registerForm.value.athletes = [];
+        tournament.athletesArray = [];
+        this.registerForm.value.athletes = [];
+        this.getTournaments();
+      });
   }
 
   private initializeForm() {

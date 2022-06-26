@@ -24,26 +24,9 @@
   </p>
 
   <p *ngIf="this.type === 'athlete'">
-    <!-- <mat-form-field appearance="fill" class="small-field">
-      <mat-label>დაბადების თარიღი</mat-label>
-      <input
-        matInput
-        [matDatepicker]="picker"
-        formControlName="date_of_birth"
-      />
-      <mat-hint>თთ/დდ/წწწწ</mat-hint>
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
-      <mat-error
-        *ngIf="registerForm.get('date_of_birth').invalid && formSubmitted"
-      >
-        გთხოვთ შეავსოთ
-      </mat-error>
-    </mat-form-field> -->
     <mat-form-field appearance="fill" class="small-field">
-      <mat-label>დაბადების თარიღი</mat-label>
+      <mat-label>დაბადების თარიღი (თთ/დდ/წწწწ)</mat-label>
       <input matInput formControlName="date_of_birth" />
-
       <mat-error
         *ngIf="registerForm.get('date_of_birth').invalid && formSubmitted"
       >
@@ -124,27 +107,7 @@
       </mat-error>
     </mat-form-field>
   </p>
-  <!-- <p>
-    <mat-form-field appearance="fill" class="small-field">
-      <mat-label>ფოტო</mat-label>
-      <input
-        matInput
-        formControlName="profile_picture"
-        type="file"
-        accept=".jpeg,.png,.jpg"
-      />
-    </mat-form-field>
-  </p> -->
-  <p *ngIf="type !== 'tournament'">
-    <mat-label for="avatar">ფოტო</mat-label>
-    <input
-      formControlName="profile_picture"
-      type="file"
-      accept=".jpeg,.png,.jpg"
-      id="avatar"
-      name="avatar"
-    />
-  </p>
+
   <p *ngIf="type === 'tournament'">
     <mat-form-field appearance="fill" class="small-field">
       <mat-label>დასახელება</mat-label>
@@ -161,7 +124,7 @@
       </mat-error>
     </mat-form-field>
     <mat-form-field appearance="fill" class="small-field">
-      <mat-label>დაწყების თარიღი</mat-label>
+      <mat-label>დაწყების თარიღი (თთ/დდ/წწწწ)</mat-label>
       <input matInput formControlName="start_date" />
       <mat-error
         *ngIf="registerForm.get('start_date').invalid && formSubmitted"
@@ -170,7 +133,7 @@
       </mat-error>
     </mat-form-field>
     <mat-form-field appearance="fill" class="small-field">
-      <mat-label>დასრულების თარიღი</mat-label>
+      <mat-label>დასრულების თარიღი (თთ/დდ/წწწწ)</mat-label>
       <input matInput formControlName="end_date" />
       <mat-error *ngIf="registerForm.get('end_date').invalid && formSubmitted">
         გთხოვთ შეავსოთ
@@ -187,17 +150,21 @@
         >
       </mat-select>
     </mat-form-field>
-
-    <!-- <mat-form-field appearance="fill" class="small-field">
-      <mat-label>მსაჯები</mat-label>
-      <input matInput formControlName="referees" />
-      <mat-error *ngIf="registerForm.get('referees').invalid && formSubmitted">
-        გთხოვთ შეავსოთ
-      </mat-error>
-    </mat-form-field> -->
   </p>
 </form>
 
-<button mat-raised-button color="primary" type="submit" (click)="onSubmit()">
+<button
+  mat-raised-button
+  color="primary"
+  type="submit"
+  (click)="onSubmit()"
+  style="margin-bottom: 5px"
+>
   რეგისტრაცია
 </button>
+<div *ngFor="let e of errorsKeys" style="color: red">
+  {{ this.generalErrors[e][0] }}
+</div>
+<div *ngIf="successText" style="color: green">
+  {{ successText }}
+</div>

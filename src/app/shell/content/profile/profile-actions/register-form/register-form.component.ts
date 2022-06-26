@@ -1,5 +1,12 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Component, OnInit, Input, ChangeDetectorRef } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  ChangeDetectorRef,
+  Output,
+  EventEmitter,
+} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ProfileStorageService } from 'src/app/shared/services/services/profile-storage.service';
@@ -14,11 +21,15 @@ import { DatePipe } from '@angular/common';
 })
 export class RegisterFormComponent implements OnInit {
   @Input() type: string = '';
+  @Output() clickOnReg = new EventEmitter<any>();
 
   registerForm: any;
   formSubmitted: boolean = false;
   role: any;
   referees: any;
+  generalErrors: any;
+  errorsKeys: any;
+  successText: any;
 
   constructor(
     private http: HttpClient,
@@ -36,23 +47,21 @@ export class RegisterFormComponent implements OnInit {
   }
 
   getReferees() {
-    return this.http.get('http://127.0.0.1:8000/api/referees').subscribe(
-      (referees: any) => {
-        console.log(referees);
+    return this.http
+      .get('http://127.0.0.1:8000/api/referees')
+      .subscribe((referees: any) => {
         this.changeDetectorRef.detectChanges();
         this.referees = referees?.data;
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
+      });
   }
+
   getAllReferees() {
     return this.referees;
   }
+
   onSubmit() {
     this.formSubmitted = true;
-    console.log(this.registerForm);
+    this.successText = '';
     if (this.registerForm.invalid) return;
 
     const httpOptions = {
@@ -67,15 +76,6 @@ export class RegisterFormComponent implements OnInit {
       `Bearer ${this.profileStorageService.getToken()}`
     );
 
-    // let formValue = { ...this.registerForm };
-    // console.log(formValue, 'formValue');
-    // formValue.date_of_birth = this.datepipe.transform(
-    //   new Date(this.registerForm.date_of_birth),
-    //   'yyyy-MM-dd'
-    // );
-    // console.log('formValue.date_of_birth', formValue.date_of_birth);
-    // return;
-
     return this.http
       .post(
         'http://127.0.0.1:8000/api/' + this.type + '-store',
@@ -85,15 +85,18 @@ export class RegisterFormComponent implements OnInit {
         }
       )
       .subscribe(
-        () => {
+        (res) => {
           this.registerForm.reset();
-          alert('წარმატებით დარეგისტრირდა ბაზაში');
-
+          this.successText = 'წარმატებით დარეგისტრირდა ბაზაში';
+          this.generalErrors = {};
+          this.errorsKeys = [];
           this.getReferees();
+          this.clickOnReg.emit();
         },
         (err) => {
-          console.log(err);
-          alert('დაფიქსირდა შეცდომა, შეამოწმეთ ველები');
+          this.successText = '';
+          this.generalErrors = err.error.errors;
+          this.errorsKeys = Object.keys(this.generalErrors);
         }
       );
   }
@@ -115,7 +118,7 @@ export class RegisterFormComponent implements OnInit {
       this.registerForm.addControl('profile_picture', new FormControl(''));
       this.registerForm.addControl(
         'email',
-        new FormControl('', [Validators.required, Validators.email])
+        new FormControl('', Validators.email)
       );
       this.registerForm.addControl(
         'password',
@@ -165,18 +168,9 @@ export class RegisterFormComponent implements OnInit {
         'end_date',
         new FormControl('', Validators.required)
       );
-      this.registerForm.addControl(
-        'referees',
-        new FormControl([], Validators.required)
-      );
+      this.registerForm.addControl('referees', new FormControl([]));
     }
   }
-
-  // 'title' => 'required',
-  //           'location' => 'required',
-  //           'start_date' => 'required|date',
-  //           'end_date' => 'required|date',
-  //           'referees' => 'array'
 
   private initializeForm() {
     this.registerForm = new FormGroup({
