@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ProfileStorageService } from 'src/app/shared/services/services/profile-storage.service';
 import { map } from 'rxjs/operators';
+import { Title } from '@angular/platform-browser';
 @Component({
   selector: 'app-tournaments',
   templateUrl: './tournaments.component.html',
@@ -18,8 +19,11 @@ export class TournamentsComponent implements OnInit {
 
   constructor(
     private profileStorageService: ProfileStorageService,
-    private http: HttpClient
-  ) {}
+    private http: HttpClient,
+    private titleService: Title
+  ) {
+    this.titleService.setTitle('შეჯიბრებები');
+  }
 
   ngOnInit(): void {
     this.initializeForm();

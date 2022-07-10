@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 @Component({
   selector: 'app-auth',
@@ -12,7 +13,13 @@ export class AuthComponent implements OnInit {
   formSubmitted: boolean = false;
   generalErrors: any;
   errorsKeys: any;
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private titleService: Title
+  ) {
+    this.titleService.setTitle('ავტორიზაცია');
+  }
 
   ngOnInit(): void {
     this.initializeForm();

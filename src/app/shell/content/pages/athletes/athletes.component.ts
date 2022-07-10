@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { ProfileStorageService } from 'src/app/shared/services/services/profile-storage.service';
+import { HttpClient } from '@angular/common/http';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
+import { Title } from '@angular/platform-browser';
 @Component({
   selector: 'app-athletes',
   templateUrl: './athletes.component.html',
@@ -12,10 +12,9 @@ export class AthletesComponent implements OnInit {
   athletes: any;
   @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
 
-  constructor(
-    private profileStorageService: ProfileStorageService,
-    private http: HttpClient
-  ) {}
+  constructor(private http: HttpClient, private titleService: Title) {
+    this.titleService.setTitle('სპორტსმენები');
+  }
 
   ngOnInit(): void {
     this.getCoachesAthletes();

@@ -8,7 +8,11 @@ import { ProfileStorageService } from '../shared/services/services/profile-stora
 export class LoggedOutGuard implements CanActivate {
   constructor(private auth: ProfileStorageService, private router: Router) {}
   canActivate(): boolean {
-    this.router.navigate(['']);
-    return this.auth.getToken() ? true : false;
+    if (this.auth.getToken()) {
+      return true;
+    } else {
+      this.router.navigate(['']);
+      return false;
+    }
   }
 }
