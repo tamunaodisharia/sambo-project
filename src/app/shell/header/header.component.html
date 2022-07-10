@@ -7,6 +7,7 @@
   <div class="navigation">
     <button mat-button (click)="onAboutUs()">ჩვენს შესახებ</button>
     <button mat-button (click)="onTournaments()">შეჯიბრებები</button>
+    <button mat-button (click)="onAthletes()">სპორტსმენები</button>
     <button mat-button *ngIf="!getUser(); else userLogo" (click)="onAuth()">
       ავტორიზაცია
     </button>

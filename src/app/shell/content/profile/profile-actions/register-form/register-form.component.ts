@@ -55,10 +55,6 @@ export class RegisterFormComponent implements OnInit {
       });
   }
 
-  getAllReferees() {
-    return this.referees;
-  }
-
   onSubmit() {
     this.formSubmitted = true;
     this.successText = '';
@@ -66,7 +62,7 @@ export class RegisterFormComponent implements OnInit {
 
     const httpOptions = {
       headers: new HttpHeaders({
-        'Content-Type': 'application/json',
+        Accept: 'application/json',
         Authorization: 'my-auth-token',
       }),
     };
@@ -75,7 +71,6 @@ export class RegisterFormComponent implements OnInit {
       'Authorization',
       `Bearer ${this.profileStorageService.getToken()}`
     );
-
     return this.http
       .post(
         'http://127.0.0.1:8000/api/' + this.type + '-store',
@@ -90,7 +85,6 @@ export class RegisterFormComponent implements OnInit {
           this.successText = 'წარმატებით დარეგისტრირდა ბაზაში';
           this.generalErrors = {};
           this.errorsKeys = [];
-          this.getReferees();
           this.clickOnReg.emit();
         },
         (err) => {
@@ -115,7 +109,6 @@ export class RegisterFormComponent implements OnInit {
         'club',
         new FormControl('', Validators.required)
       );
-      this.registerForm.addControl('profile_picture', new FormControl(''));
       this.registerForm.addControl(
         'email',
         new FormControl('', Validators.email)
@@ -147,11 +140,10 @@ export class RegisterFormComponent implements OnInit {
         'club',
         new FormControl('', Validators.required)
       );
-      this.registerForm.addControl('profile_picture', new FormControl(''));
     } else if (this.type === 'tournament') {
       this.registerForm.removeControl('name');
       this.registerForm.removeControl('surname');
-      this.registerForm.removeControl('profile_picture');
+      // this.registerForm.removeControl('profile_picture');
       this.registerForm.addControl(
         'title',
         new FormControl('', Validators.required)
@@ -176,7 +168,7 @@ export class RegisterFormComponent implements OnInit {
     this.registerForm = new FormGroup({
       name: new FormControl('', Validators.required),
       surname: new FormControl('', Validators.required),
-      profile_picture: new FormControl(null),
+      // profile_picture: new FormControl(null),
     });
     this.addControls();
   }

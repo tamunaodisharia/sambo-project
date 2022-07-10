@@ -143,11 +143,9 @@
     <mat-form-field appearance="fill" class="medium-field">
       <mat-label>მსაჯები</mat-label>
       <mat-select formControlName="referees" multiple>
-        <mat-option
-          *ngFor="let referee of getAllReferees()"
-          [value]="referee.id"
-          >{{ referee.name + " " + referee.surname }}</mat-option
-        >
+        <mat-option *ngFor="let referee of referees" [value]="referee.id">{{
+          referee.name + " " + referee.surname
+        }}</mat-option>
       </mat-select>
     </mat-form-field>
   </p>

@@ -1,1 +1,59 @@
-<p>athletes works!</p>
+<div style="margin: 20px">
+  <mat-form-field appearance="standard" style="width: 400px">
+    <mat-label>Filter</mat-label>
+    <input
+      matInput
+      (keyup)="applyFilter($event)"
+      placeholder="Ex. ium"
+      #input
+    />
+  </mat-form-field>
+
+  <table
+    mat-table
+    [dataSource]="athletes"
+    class="mat-elevation-z8"
+    style="width: 100%"
+  >
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>სახელი</th>
+      <td mat-cell *matCellDef="let athlete">{{ athlete.name }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="surname">
+      <th mat-header-cell *matHeaderCellDef>გვარი</th>
+      <td mat-cell *matCellDef="let athlete">{{ athlete.surname }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="weight">
+      <th mat-header-cell *matHeaderCellDef>წონა (კგ)</th>
+      <td mat-cell *matCellDef="let athlete">{{ athlete.weight }} კგ</td>
+    </ng-container>
+
+    <ng-container matColumnDef="height">
+      <th mat-header-cell *matHeaderCellDef>სიმაღლე (სმ)</th>
+      <td mat-cell *matCellDef="let athlete">{{ athlete.height }} სმ</td>
+    </ng-container>
+
+    <ng-container matColumnDef="age">
+      <th mat-header-cell *matHeaderCellDef>ასაკი</th>
+      <td mat-cell *matCellDef="let athlete">{{ athlete.age }}</td>
+    </ng-container>
+
+    <tr
+      mat-header-row
+      *matHeaderRowDef="['name', 'surname', 'weight', 'height', 'age']"
+    ></tr>
+    <tr
+      mat-row
+      *matRowDef="
+        let row;
+        columns: ['name', 'surname', 'weight', 'height', 'age']
+      "
+    ></tr>
+  </table>
+  <mat-paginator
+    [pageSizeOptions]="[5, 10, 25, 100]"
+    aria-label="Select page of users"
+  ></mat-paginator>
+</div>

@@ -1,12 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-  ActivatedRouteSnapshot,
-  CanActivate,
-  Router,
-  RouterStateSnapshot,
-  UrlTree,
-} from '@angular/router';
-import { map, Observable } from 'rxjs';
+import { CanActivate, Router } from '@angular/router';
 import { ProfileStorageService } from '../shared/services/services/profile-storage.service';
 
 @Injectable({
@@ -14,10 +7,8 @@ import { ProfileStorageService } from '../shared/services/services/profile-stora
 })
 export class LoggedInGuard implements CanActivate {
   constructor(private auth: ProfileStorageService, private router: Router) {}
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ): boolean {
+  canActivate(): boolean {
+    this.router.navigate(['']);
     return this.auth.getToken() ? false : true;
   }
 }

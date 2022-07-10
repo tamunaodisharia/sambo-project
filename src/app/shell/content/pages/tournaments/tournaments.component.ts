@@ -52,7 +52,7 @@ export class TournamentsComponent implements OnInit {
       .get(
         'http://127.0.0.1:8000/api/coaches/' +
           this.profileStorageService.getUserId() +
-          '/getAthletes'
+          '/athletes'
       )
       .subscribe((athletes: any) => {
         this.athletes = athletes?.data;

@@ -41,12 +41,7 @@
   </h3>
   <mat-form-field *ngIf="role === 'coach'" appearance="standard">
     <mat-label>Filter</mat-label>
-    <input
-      matInput
-      (keyup)="applyFilter($event)"
-      placeholder="Ex. ium"
-      #input
-    />
+    <input matInput (keyup)="applyFilter($event)" placeholder="ძებნა" #input />
   </mat-form-field>
   <table
     *ngIf="role === 'coach'"
@@ -79,10 +74,19 @@
       <td mat-cell *matCellDef="let athlete">{{ athlete.age }}</td>
     </ng-container>
 
+    <ng-container matColumnDef="edit" stickyEnd>
+      <th mat-header-cell *matHeaderCellDef aria-label="row actions">&nbsp;</th>
+      <td mat-cell *matCellDef="let element">
+        <div (click)="onEditAthlete(element)" style="cursor: pointer">
+          <mat-icon style="color: green">edit</mat-icon>
+        </div>
+      </td>
+    </ng-container>
+
     <ng-container matColumnDef="del" stickyEnd>
       <th mat-header-cell *matHeaderCellDef aria-label="row actions">&nbsp;</th>
       <td mat-cell *matCellDef="let element">
-        <div (click)="onDeleteAAthlete(element)" style="cursor: pointer">
+        <div (click)="onDeleteAthlete(element)" style="cursor: pointer">
           <mat-icon style="color: red">delete</mat-icon>
         </div>
       </td>
@@ -90,13 +94,21 @@
 
     <tr
       mat-header-row
-      *matHeaderRowDef="['name', 'surname', 'weight', 'height', 'age', 'del']"
+      *matHeaderRowDef="[
+        'name',
+        'surname',
+        'weight',
+        'height',
+        'age',
+        'edit',
+        'del'
+      ]"
     ></tr>
     <tr
       mat-row
       *matRowDef="
         let row;
-        columns: ['name', 'surname', 'weight', 'height', 'age', 'del']
+        columns: ['name', 'surname', 'weight', 'height', 'age', 'edit', 'del']
       "
     ></tr>
   </table>

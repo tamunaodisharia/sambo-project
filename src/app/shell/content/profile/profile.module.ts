@@ -14,13 +14,15 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { AuthComponent } from '../auth/auth.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
-
+import { AthleteEditModalComponent } from './profile-actions/athlete-edit-modal/athlete-edit-modal.component';
 @NgModule({
   declarations: [
     ProfileComponent,
@@ -28,6 +30,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     ProfileActionsComponent,
     RegisterFormComponent,
     AuthComponent,
+    AthleteEditModalComponent,
   ],
   imports: [
     CommonModule,
@@ -43,6 +46,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatSelectModule,
     MatTableModule,
     MatPaginatorModule,
+    MatDialogModule,
+    MatSnackBarModule,
   ],
   providers: [],
   bootstrap: [ProfileComponent],

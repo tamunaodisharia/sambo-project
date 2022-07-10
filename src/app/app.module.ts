@@ -14,7 +14,6 @@ import { MatIconModule } from '@angular/material/icon';
 
 import { ProfileModule } from './shell/content/profile/profile.module';
 import { HttpClientModule } from '@angular/common/http';
-import { AuthComponent } from './shell/content/auth/auth.component';
 import { AthletesComponent } from './shell/content/pages/athletes/athletes.component';
 import { AboutUsComponent } from './shell/content/pages/about-us/about-us.component';
 import { TournamentsComponent } from './shell/content/pages/tournaments/tournaments.component';
@@ -22,7 +21,9 @@ import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableModule } from '@angular/material/table';
+import { MatInputModule } from '@angular/material/input';
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,6 +47,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatSelectModule,
     MatFormFieldModule,
     ReactiveFormsModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatInputModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

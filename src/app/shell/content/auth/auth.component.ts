@@ -10,6 +10,8 @@ import { Router } from '@angular/router';
 export class AuthComponent implements OnInit {
   authForm: any;
   formSubmitted: boolean = false;
+  generalErrors: any;
+  errorsKeys: any;
   constructor(private http: HttpClient, private router: Router) {}
 
   ngOnInit(): void {
@@ -29,8 +31,13 @@ export class AuthComponent implements OnInit {
           localStorage.setItem('token', res['token']);
           localStorage.setItem('userRole', res['user']['roles']);
           localStorage.setItem('id', res['id']);
+          this.generalErrors = {};
+          this.errorsKeys = [];
         },
-        (err) => {}
+        (err) => {
+          this.generalErrors = err.error.errors;
+          this.errorsKeys = Object.keys(this.generalErrors);
+        }
       );
   }
   private initializeForm() {

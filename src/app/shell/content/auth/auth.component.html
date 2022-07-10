@@ -19,6 +19,10 @@
     </p>
   </form>
 
+  <div *ngFor="let e of errorsKeys" style="color: red; margin-bottom: 10px">
+    {{ this.generalErrors[e] }}
+  </div>
+
   <button mat-raised-button color="primary" type="submit" (click)="onSubmit()">
     ავტორიზაცია
   </button>
