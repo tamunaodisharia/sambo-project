@@ -29,7 +29,7 @@ export class TournamentsComponent implements OnInit {
     this.initializeForm();
     this.role = this.profileStorageService.getRole();
     this.getTournaments();
-    this.getAthletes();
+    if (this.role === 'coach') this.getAthletes();
   }
 
   getTournaments() {
